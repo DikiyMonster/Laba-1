@@ -9,7 +9,7 @@
 using namespace std;
 using namespace chrono;
 
-// Генерация файла с натуральными числами от 1 до N
+// Р“РµРЅРµСЂР°С†РёСЏ С„Р°Р№Р»Р° СЃ РЅР°С‚СѓСЂР°Р»СЊРЅС‹РјРё С‡РёСЃР»Р°РјРё РѕС‚ 1 РґРѕ N 
 void generateFile(const string& filename, int N)
 {
     ofstream file(filename);
@@ -24,7 +24,7 @@ void generateFile(const string& filename, int N)
 
 
 
-// Последовательная обработка элементов файла (умножение на число) и запись в другой файл
+// РџРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅР°СЏ РѕР±СЂР°Р±РѕС‚РєР° СЌР»РµРјРµРЅС‚РѕРІ С„Р°Р№Р»Р°(СѓРјРЅРѕР¶РµРЅРёРµ РЅР° С‡РёСЃР»Рѕ)
 void sequentialProcessing(const string& filename, int multiplier)
 {
     ifstream file(filename);
@@ -36,7 +36,7 @@ void sequentialProcessing(const string& filename, int multiplier)
     }
 }
 
-// Многопоточная обработка элементов файла(Возведение в степень)
+// РњРЅРѕРіРѕРїРѕС‚РѕС‡РЅР°СЏ РѕР±СЂР°Р±РѕС‚РєР° СЌР»РµРјРµРЅС‚РѕРІ С„Р°Р№Р»Р° (РІРѕР·РІРµРґРµРЅРёРµ РІ СЃС‚РµРїРµРЅСЊ)
 void parallelProcessing(const string& filename,int exponent, int numThreads)
 {
     ifstream file(filename);
@@ -44,14 +44,14 @@ void parallelProcessing(const string& filename,int exponent, int numThreads)
     vector<int> nums;
     mutex myMutex;
 
-    // Чтение элементов из файла
+    // Р§С‚РµРЅРёРµ СЌР»РµРјРµРЅС‚РѕРІ РёР· С„Р°Р№Р»Р°
     int num;
     while (file >> num)
     {
         nums.push_back(num);
     }
 
-    // Функция, которую выполняет каждый поток
+    // Р¤СѓРЅРєС†РёСЏ, РєРѕС‚РѕСЂСѓСЋ РІС‹РїРѕР»РЅСЏРµС‚ РєР°Р¶РґС‹Р№ РїРѕС‚РѕРє
     auto threadFunction = [&](int start, int end)
         {
             for (int i = start; i < end; ++i)
@@ -64,7 +64,7 @@ void parallelProcessing(const string& filename,int exponent, int numThreads)
         };
 
 
-    // Разделение элементов массива между потоками
+    // Р Р°Р·РґРµР»РµРЅРёРµ СЌР»РµРјРµРЅС‚РѕРІ РјР°СЃСЃРёРІР° РјРµР¶РґСѓ РїРѕС‚РѕРєР°РјРё
     int chunkSize = nums.size() / numThreads;
     int remaining = nums.size() % numThreads;
     int start = 0;
@@ -84,7 +84,7 @@ void parallelProcessing(const string& filename,int exponent, int numThreads)
         threads.emplace_back(threadFunction, start, end);
     }
 
-    // Ожидание завершения работы всех потоков
+    // РћР¶РёРґР°РЅРёРµ Р·Р°РјРµСЂС€РµРЅРёСЏ СЂР°Р±РѕС‚С‹ РєР°Р¶РґРѕРіРѕ РїРѕС‚РѕРєР°
     for (auto& thread : threads)
     {
         thread.join();
@@ -97,41 +97,41 @@ int main()
 {
     setlocale(LC_ALL, "Russian");
 
-    // Задаём значения N
+    // Р—Р°РґР°С‘Рј Р·РЅР°С‡РµРЅРёРµ N
     int N;
-    cout << "Введите значение N: ";
+    cout << "Р’РІРµРґРёС‚Рµ Р·РЅР°С‡РµРЅРёРµ N: ";
     cin >> N;
 
-    // Генерация файла с натуральными числами от 1 до N
+    // Р“РµРЅРµСЂР°С†РёСЏ С„Р°Р№Р»Р° СЃ РЅР°С‚СѓСЂР°Р»СЊРЅС‹РјРё С‡РёСЃР»Р°РјРё РѕС‚ 1 РґРѕ N
     string filename = "numbers.txt";
     generateFile(filename, N);
 
-    // Задание значения для умножения
+    // Р—Р°РґР°С‘Рј Р·РЅР°С‡РµРЅРёРµ РґР»СЏ СѓРјРЅРѕР¶РµРЅРёСЏ
     int multiplier;
-    cout << "Введите множитель: ";
+    cout << "Р’РІРµРґРёС‚Рµ РјРЅРѕР¶РёС‚РµР»СЊ: ";
     cin >> multiplier;
 
     int exponent;
-    cout << "Введите степень: ";
+    cout << "Р’РІРµРґРёС‚Рµ СЃС‚РµРїРµРЅСЊ: ";
     cin >> exponent;
 
-    // Последовательная обработка элементов файла и запись в другой файл
+    // РџРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅР°СЏ РѕР±СЂР°Р±РѕС‚РєР° СЌР»РµРјРµРЅС‚РѕРІ С„Р°Р№Р»Р°
     sequentialProcessing(filename, multiplier);
 
-    // Задание количества потоков для параллельной обработки
+    // Р—Р°РґР°С‘Рј РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕС‚РѕРєРѕРІ РґР»СЏ РїР°СЂР°Р»Р»РµР»СЊРЅРѕР№ РѕР±СЂР°Р±РѕС‚РєРё
     int numThreads;
-    cout << "Введите количество потоков для параллельной обработки: ";
+    cout << "Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕС‚РѕРєРѕРІ РґР»СЏ РїР°СЂР°Р»Р»РµР»СЊРЅРѕР№ РѕР±СЂР°Р±РѕС‚РєРё: ";
     cin >> numThreads;
 
-    // Замер времени многопоточной обработки
+    // Р—Р°РјРµСЂ РІСЂРµРјРµРЅРё РјРЅРѕРіРѕРїРѕС‚РѕС‡РЅРѕР№ РѕР±СЂР°Р±РѕС‚РєРё
     auto start = high_resolution_clock::now();
 
-    // Многопоточная обработка элементов файла и запись в другой файл
+    // РњРЅРѕРіРѕРїРѕС‚РѕС‡РЅР°СЏ РѕР±СЂР°Р±РѕС‚РєР° СЌР»РµРјРµРЅС‚РѕРІ С„Р°Р№Р»Р°
     parallelProcessing(filename,exponent, numThreads);
     auto end = high_resolution_clock::now();
 
     auto duration = duration_cast<milliseconds>(end - start);
-    cout << "Время многопоточной обработки: " << duration.count() << " мс" << endl;
+    cout << "Р’СЂРµРјСЏ РјРЅРѕРіРѕРїРѕС‚РѕС‡РЅРѕР№ РѕР±СЂР°Р±РѕС‚РєРё: " << duration.count() << " Г¬Г±" << endl;
 
     return 0;
 }
